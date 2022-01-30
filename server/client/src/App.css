@@ -1,0 +1,21 @@
+.App {
+  text-align: center;
+  background-color:black;
+}
+ .App a{
+  text-decoration: none;
+  font-size: 30px;
+  margin-left: 5rem;
+    color:whitesmoke;
+      cursor: pointer;
+      transition: 1s;
+  }
+  /* .App a:hover {
+    transform: scale(1.03);
+    letter-spacing: 2px;
+    width: 100px;
+  } */
+
+
+
+
