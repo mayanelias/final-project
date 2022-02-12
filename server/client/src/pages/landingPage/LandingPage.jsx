@@ -2,21 +2,28 @@ import React, { useState } from "react";
 import Register from "../register/Register";
 import Login from "../login/Login";
 import MainVideo from "../../../src/videos/video.mp4";
-import "../landingPage/landingPage.css";
-const LandingPage = ({ setAuth, USERֹֹ_INFORMATIOM }) => {
+import style from "../landingPage/landingPage.module.css";
+const LandingPage = ({
+  auth,
+  setAuth,
+  USERֹֹ_INFORMATIOM,
+  user,
+  setUser,
+  setWishList,
+}) => {
   const [flag, setFlag] = useState({ register: false, login: false });
   return (
-    <div className="navbar">
-<img onClick={() => setFlag({ register: false, login: false })}
- className="logo" src="https://i.ibb.co/WgDgKwy/Luxury-music-logo-design-golden-shiny-musical-emblem-Vector-illustration.jpg"/>
-      <h1
-        className="title"
-      >
-        Music is the soundtrack of your life
-      </h1>
-      {!flag.login&&!flag.register? (
+    <div className={style.navbar}>
+      <img
+        onClick={() => setFlag({ register: false, login: false })}
+        className={style.logo}
+        src="https://i.ibb.co/BGgPSbV/Elias-Music-Live-Shows-logos-transparent.png"
+      />
+      <h1 className={style.title}>Music is the soundtrack of your life...</h1>
+<video className={style.mainVideo} src={MainVideo} autoPlay loop muted />
+      {!flag.login && !flag.register ? (
         <button
-          className="signInRegister"
+          className={style.signInRegister}
           onClick={() => setFlag({ register: false, login: true })}
         >
           SiGN-IN/REGISTER
@@ -24,17 +31,31 @@ const LandingPage = ({ setAuth, USERֹֹ_INFORMATIOM }) => {
       ) : (
         ""
       )}
-      {flag.register?  <Register
-      setAuth={setAuth}
-      USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
-      setFlag={setFlag}
-    />:""}
-    {flag.login?   <Login
-      setAuth={setAuth}
-      USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
-      setFlag={setFlag}
-    />:""}
-  <video id="mainVideo" src={MainVideo} autoPlay loop muted />
+      {flag.register ? (
+        <Register
+          auth={auth}
+          setAuth={setAuth}
+          USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
+          setFlag={setFlag}
+          user={user}
+          setUser={setUser}
+        />
+      ) : (
+        ""
+      )}
+      {flag.login ? (
+        <Login
+          setAuth={setAuth}
+          auth={auth}
+          USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
+          setFlag={setFlag}
+          user={user}
+          setUser={setUser}
+          setWishList={setWishList}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

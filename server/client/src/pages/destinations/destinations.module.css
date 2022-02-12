@@ -1,0 +1,97 @@
+
+.info {
+  display: grid;
+  grid-template-columns: repeat(3, 28%);
+  gap: 5rem;
+  margin-top: 40px;
+  border-radius: 2rem;
+  min-width: 28rem;
+  color: whitesmoke;
+  margin-left: 2rem;
+  }
+  .searchIcon {
+    height: 0.5rem;
+    width: 0.5rem;
+    color: whitesmoke;
+    display: grid;
+    text-align: center;
+    margin-left: -2rem;
+    margin-top: 0.3rem;
+  }
+  .searchIcon svg {
+    font-size: 1.5rem;
+  }
+  .searchInputs {
+    margin-top: 1rem;
+    display: flex;
+  }
+  .search input {
+    background-color: transparent;
+    border: solid whitesmoke 2px;
+    margin-left: 30rem;
+    font-size: 1.5rem;
+    padding: 1rem;
+    height: 2rem;
+    width: 23rem;
+    color: whitesmoke;
+  }
+  .dataResult {
+  margin-top: 0.5rem; 
+  width: 23rem;
+  height: 20rem;
+  margin-left: 30rem;
+  background-color: #F2ECFF;
+  overflow: hidden;
+  overflow-y: auto;
+  position: absolute;
+  }
+  .dataResult::-webkit-scrollbar {
+    display: none;
+  }
+  .dataResult .dataItem {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    color: black;
+  }
+  .dataItem p {
+    margin-left: 15rem;
+  }
+  .dataResult .dataItem:hover{
+  background-color: grey;
+  }
+  a#showDetailsArtist {
+  text-decoration: none;
+  color: black;
+  }
+  #clearBtn {
+    cursor: pointer;
+  }
+
+  .cardImg {
+  width: 21.6rem;
+  height: 15rem;
+  object-fit: cover;
+  }
+  .cardBody {
+    background-color:black;
+    transition: transform 450ms;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+  .info .cardBody:focus,
+.info .cardBody:hover {
+  transform: scale(1.1);
+}
+  .details{
+    background-color: green;
+    opacity: 0.7;
+    margin-top: 10rem;
+    }
+  .country {
+    margin-top: 5rem;
+    font-size: 2.5rem;
+  }
+  .destinations{
+  width: 100%;
+  }

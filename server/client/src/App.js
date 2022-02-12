@@ -1,25 +1,52 @@
-import { BrowserRouter, Switch, Route, Link} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link, Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Spinner } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home/Home";
-import About from "./pages/About";
-import Artists from "./pages/Artists";
-import Concerts from "./pages/Concerts";
-import Contact from "./pages/Contact";
+import About from "./pages/about/About";
+import Artists from "./pages/artists/Artists";
+import Concerts from "./pages/concerts/Concerts";
 import Destinations from "./pages/destinations/Destinations";
-import Details from "./pages/Details";
+import Details from "./pages/details/Details";
 import LandingPage from "./pages/landingPage/LandingPage";
+import WishList from "./pages/wishList/WishList";
+import NavBar from "./components/navBar/NavBar";
+import ConcertsDetails from "./pages/concertsDetails/ConcertsDetails";
+import TopTenArtistsDetails from "./pages/topTenArtistsDetails/TopTenArtistsDetails";
+import Footer from "./components/footer/Footer";
 import "./App.css";
 function App() {
   const [auth, setAuth] = useState(null);
   const [data, setData] = useState([]);
   const [details, setDetails] = useState("");
+  const [wishList, setWishList] = useState([]);
+  const [concertsDetails, setConcertsDetails] = useState("");
+  const [user, setUser] = useState("");
+  const [topTenArtistsDetails, setTopTenArtistsDetails] = useState("");
+  const [loading, setLoading] = useState(false);
   const USERֹֹ_INFORMATIOM = "userInformation";
   useEffect(() => {
-    const userInformation = JSON.parse(
-      localStorage.getItem(USERֹֹ_INFORMATIOM)
+    setAuth(
+      JSON.parse(localStorage.getItem(USERֹֹ_INFORMATIOM))
+        ? JSON.parse(localStorage.getItem(USERֹֹ_INFORMATIOM))
+        : null
     );
-    const userEmail=userInformation ? setAuth(userInformation) : null;
+  }, []);
+  const localId = JSON.parse(localStorage.getItem(USERֹֹ_INFORMATIOM));
+  useEffect(() => {
+    if (!localId) return;
+    axios
+      .get(`/users/${localId.localId}`)
+      .then(function (res) {
+        console.log(res);
+        console.log(localId.localId);
+        setWishList(res.data.wishList);
+        console.log(res.data.wishList);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
   useEffect(getData, []);
   function getData() {
@@ -37,9 +64,10 @@ function App() {
     //   const AccessTokenID = "a4e6999e-68ec-4c65-b08e-6773f663db0d";
     //   const SecretKey =
     //     "Aow7X8my8bfu3yBGTZ5ihjxmfXY6zt7DQHrwbk+/mjcAXh3daOVOBLlurEq/JszvaY82ugKjsCE";
+    setLoading(true);
     axios
       .get(
-        "./data/concerts.json"
+        "/concerts"
         // `https://api.seatgeek.com/2/events?taxonomies.name=concert&client_id=${clientId}&per_page=200`
         // `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${ticketMasterConsumerKey}`
         // `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey${ticketMasterConsumerKey}`
@@ -48,9 +76,11 @@ function App() {
         // `https://app.ticketmaster.com/discovery/v2/events.json?attractionId=K8vZ917Gku7&countryCode=US&apikey=${ticketMasterConsumerKey}`
       )
       .then(function (response) {
-        console.log(response.data.concerts);
-        setData(response.data.concerts);
-      })
+        setTimeout(() => {
+          setLoading(false);
+          setData(response.data);
+        });
+      }, 2000)
       .catch(function (error) {
         console.log(error);
       });
@@ -60,26 +90,18 @@ function App() {
       <div className="App">
         {auth ? (
           <>
-            <button
-              className="signOut"
-              onClick={() => {
-                localStorage.clear();
-                setAuth(null);
-              }}
-            >
-              sign out
-            </button>
-            <Link to="/">Home</Link>
-            <Link to="/About">About</Link>
-            <Link to="/Artists">Artists</Link>
-            <Link to="/Concerts">Concerts</Link>
-            <Link to="/Destinations">Destinations</Link>
+            <NavBar
+              auth={auth}
+              setAuth={setAuth}
+              USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
+              setWishList={setWishList}
+            />
             <Switch>
-              {/* <Route
+              <Route
                 exact
                 path="/LandingPage"
                 render={() => <Redirect to={"/"} />}
-              /> */}
+              />
               <Route
                 exact
                 path="/"
@@ -89,14 +111,65 @@ function App() {
                     setData={setData}
                     details={details}
                     setDetails={setDetails}
+                    wishList={wishList}
+                    setWishList={setWishList}
                     placeholder={"Search Artist..."}
+                    user={user}
+                    setUser={setUser}
+                    auth={auth}
+                    topTenArtistsDetails={topTenArtistsDetails}
+                    setTopTenArtistsDetails={setTopTenArtistsDetails}
                   />
                 )}
               />
               <Route exact path="/About" render={() => <About />} />
-              <Route exact path="/Artists" render={() => <Artists />} />
-              <Route exact path="/Concerts" render={() => <Concerts />} />
-              <Route exact path="/Contact" render={() => <Contact />} />
+              <Route
+                exact
+                path="/Artists"
+                render={() => (
+                  <Artists
+                    data={data}
+                    setData={setData}
+                    details={details}
+                    setDetails={setDetails}
+                    placeholder={"Search Artist..."}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/Concerts"
+                render={() => (
+                  <Concerts
+                    data={data}
+                    setData={setData}
+                    details={details}
+                    setDetails={setDetails}
+                    wishList={wishList}
+                    setWishList={setWishList}
+                    placeholder={"Search Artist..."}
+                    user={user}
+                    setUser={setUser}
+                    auth={auth}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/WishList"
+                render={() => (
+                  <WishList
+                    auth={auth}
+                    setData={setData}
+                    setAuth={setAuth}
+                    USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
+                    data={data}
+                    wishList={wishList}
+                    setWishList={setWishList}
+                    setDetails={setDetails}
+                  />
+                )}
+              />
               <Route
                 exact
                 path="/Destinations"
@@ -107,6 +180,8 @@ function App() {
                     details={details}
                     setDetails={setDetails}
                     placeholder={"Search City..."}
+                    concertsDetails={concertsDetails}
+                    setConcertsDetails={setConcertsDetails}
                   />
                 )}
               />
@@ -117,15 +192,48 @@ function App() {
                   <Details details={details} setDetails={setDetails} />
                 )}
               />
+              <Route
+                exact
+                path="/TopTenArtistsDetails"
+                render={() => (
+                  <TopTenArtistsDetails
+                    topTenArtistsDetails={topTenArtistsDetails}
+                    setTopTenArtistsDetails={setTopTenArtistsDetails}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/ConcertsDetails"
+                render={() => (
+                  <ConcertsDetails
+                    concertsDetails={concertsDetails}
+                    setConcertsDetails={setConcertsDetails}
+                  />
+                )}
+              />
             </Switch>
           </>
         ) : (
           <LandingPage
+            auth={auth}
             setAuth={setAuth}
             USERֹֹ_INFORMATIOM={USERֹֹ_INFORMATIOM}
+            user={user}
+            setUser={setUser}
+            wishList={wishList}
+            setWishList={setWishList}
           />
         )}
       </div>
+      {loading ? (
+        <p>
+          <Spinner animation="border" variant="danger" />
+        </p>
+      ) : (
+        ""
+      )}
+      <Footer/>
     </BrowserRouter>
   );
 }

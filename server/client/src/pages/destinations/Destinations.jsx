@@ -3,20 +3,26 @@ import { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { GrSearch } from "react-icons/gr";
 import { GrClose } from "react-icons/gr";
-import { GoCalendar } from "react-icons/go";
-import "./destinations.css";
-const Destinations = ({ data, setDetails, placeholder }) => {
+import Destination from "../../../src/videos/destionations.mp4";
+import Contact from "../../components/contact/Contact";
+import style from "./destinations.module.css";
+const Destinations = ({ data,placeholder,setConcertsDetails}) => {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [redirect, setRedirect] = useState(false);
   if (redirect) {
-    return <Redirect to="/Details" />;
+    return <Redirect to="/ConcertsDetails" />;
   }
+  let filteredElements = data.filter(
+    (ele, ind) =>
+      ind === data.findIndex((elem) => elem.destination === ele.destination)
+  );
+  console.log(filteredElements);
   function handleFilter(e) {
     const searchWord = e.target.value;
     setWordEntered(searchWord);
     const newFilter = data.filter((value) => {
-      return value.destination.toLowerCase().includes(searchWord.toLowerCase());
+      return value.city.toLowerCase().includes(searchWord.toLowerCase());
     });
     if (searchWord === "") {
       setFilteredData([]);
@@ -24,16 +30,11 @@ const Destinations = ({ data, setDetails, placeholder }) => {
       setFilteredData(newFilter);
     }
   }
-  function showAllInformationAboutTheDestination(id) {
-    const tempArray = [...data].filter((destination) => destination.id === id);
-    setDetails(tempArray);
-    setRedirect(true);
-  }
-  function showDestination(name) {
+  function showConcertsByDestination(city) {
     const tempArray = [...data].filter(
-      (destination) => destination.name === name
-    );
-    setDetails(tempArray);
+      (name) => name.city === city
+    )
+    setConcertsDetails(tempArray);
     setRedirect(true);
   }
   function clearInput() {
@@ -41,77 +42,87 @@ const Destinations = ({ data, setDetails, placeholder }) => {
     setWordEntered("");
   }
   console.log(data);
-  let elements = data.map((destination) => {
+  let elements = filteredElements.map((destination) => {
     let random = Math.random()
       .toString(36)
       .replace(/[^a-z]+/g, "")
       .substr(0, 5);
     return (
-      <div className="card" key={random}>
-        <img
-          className="cardImg"
-          onClick={() => {
-            showAllInformationAboutTheDestination(destination.id);
-          }}
-          src={destination.destination}
-        />
-        <div className="cardBody">
-          <h3 className="name">{destination.name}</h3>
-          <h3 className="dateTime">
-            <GoCalendar /> {destination.dateTime}
-          </h3>
-          <h4 className="country">{destination.country}, {destination.city}</h4>
-          <p>
-            <a id="ticket" href={destination.url}>
-              For Tickets Click Here
-            </a>
-          </p>
+      <div className={style.card} key={random}>
+        <div className={style.cardBody}>
+          <img
+            className={style.cardImg}
+            onClick={() => {
+              showConcertsByDestination(destination.city);
+            }}
+            src={destination.destination}
+          />
+          <div className={style.details}>
+            <h4 className={style.country}>
+            {destination.city}
+            </h4>
+          </div>
         </div>
       </div>
-    );
-  });
+    )
+  })
   return (
-    <div className="search">
-      <div className="searchInputs">
-        <input
-          type="text"
-          value={wordEntered}
-          placeholder={placeholder}
-          onChange={handleFilter}
-        />
-        <div className="searchIcon">
-          {filteredData.length == 0 ? (
-            <GrSearch />
-          ) : (
-            <GrClose onClick={clearInput} id="clearBtn" />
-          )}
+    <>
+      <video
+        className={style.destinations}
+        src={Destination}
+        autoPlay
+        loop
+        muted
+      />
+      <div className={style.search}>
+        <div className={style.searchInputs}>
+          <input
+            type="text"
+            value={wordEntered}
+            placeholder={placeholder}
+            onChange={handleFilter}
+          />
+          <div className={style.searchIcon}>
+            {filteredData.length == 0 ? (
+              <GrSearch />
+            ) : (
+              <GrClose onClick={clearInput} id={style.clearBtn} />
+            )}
+          </div>
         </div>
-      </div>
-      {filteredData.length != 0 && (
-        <div className="dataResult">
-          {filteredData.slice(0, 8).map((city) => {
-            let random = Math.random()
-              .toString(36)
-              .replace(/[^a-z]+/g, "")
-              .substr(0, 5);
-            return (
-              <div key={random} href="" className="dataItem" target={"_blank"}>
-                <a
-                  id="showDetailsArtist"
-                  href="#"
-                  onClick={() => {
-                    showDestination(city.name);
-                  }}
+        {filteredData.length != 0 && (
+          <div className={style.dataResult}>
+            {filteredData.slice(0, 8).map((destination) => {
+              let random = Math.random()
+                .toString(36)
+                .replace(/[^a-z]+/g, "")
+                .substr(0, 5);
+              return (
+                <div
+                  key={random}
+                  href=""
+                  className={style.dataItem}
+                  target={"_blank"}
                 >
-                  {city.name}
-                </a>
-              </div>
-            );
-          })}
-        </div>
-      )}
-      <div className="info">{elements};</div>
-    </div>
-  );
-};
+                  <a
+                    id={style.showDetailsArtist}
+                    href="#"
+                    onClick={() => {
+                      showConcertsByDestination(destination.city);
+                    }}
+                  >
+                    {destination.name}
+                  </a>
+                </div>
+              )
+            })}
+          </div>
+        )}
+        <div className={style.info}>{elements}</div>
+      </div>
+      <Contact/>
+    </>
+  )
+}
 export default Destinations;

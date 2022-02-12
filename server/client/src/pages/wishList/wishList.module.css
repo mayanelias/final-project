@@ -1,0 +1,60 @@
+.info {
+    display: grid;
+    grid-template-columns: repeat(3, 28%);
+    gap: 5rem;
+    margin-top: 40px;
+    border-radius: 2rem;
+    min-width: 28rem;
+    color: whitesmoke;
+    margin-left: 2rem;
+  }
+  .details{
+  background-color: #0E0D0D;
+  }
+  a#showDetailsArtist {
+  text-decoration: none;
+  color: black;
+  }
+  #clearBtn {
+    cursor: pointer;
+  }
+  .cardImg {
+    width: 21.5rem;
+    height: 15rem;
+    object-fit: cover;
+  }
+  .cardBody {
+    background-color: rgba(128, 128, 128, 0.246);
+    transition: transform 450ms;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+  .name {
+    margin-bottom: 0;
+  }
+  .dateTime {
+    line-height: 5rem;
+    margin-left: 0.5rem;
+  }
+  .country {
+    margin-top: -1rem;
+  }
+  a#ticket {
+    font-size: 1.1rem;
+    margin-top: 0.6rem;
+    color:whitesmoke;
+    font-weight: 800;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    border: 0.2rem solid red;
+    line-height: 3rem;
+  }
+  a#ticket:hover{
+  background-color: rgb(233, 52, 52);
+  border: none;
+  color: black;
+  }
+  .info .cardBody:focus,
+  .info .cardBody:hover {
+    transform: scale(1.1);
+    z-index: 1;
+  }

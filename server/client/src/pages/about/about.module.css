@@ -1,0 +1,27 @@
+
+.about{
+background-color: red;
+font-size: 4rem;
+color: whitesmoke;
+opacity: 0.7;
+}
+.summry{
+color: whitesmoke;
+margin-right:50rem;
+text-align: left;
+margin: 2rem;
+padding: 2rem;
+font-size: 1.4rem;
+opacity: 0.7;
+}
+.backgroundAbout{
+float: right;
+height: 32rem;
+opacity: 0.6;
+border: 2rem solid black;
+}
+.containerAbout{
+width: 100%;
+background-color: black;
+
+}

@@ -1,0 +1,128 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap');
+ .BoxConatiner{
+  width: 100vw;
+  height: 100vh;
+  background: #ecf0f3;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  place-items: center;
+  overflow: hidden;
+  font-family: poppins;
+   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+  position: fixed;
+} 
+.container {
+  position: fixed;
+  top: 5rem;
+  width: 20rem;
+  height: 30rem;
+  border-radius: 20px;
+  padding: 40px;
+  box-sizing: border-box;
+  background:black;
+  margin-left: 28rem;
+}
+
+.brandLogo {
+  height: 5rem;
+  width: 5rem;
+  margin: auto;
+  border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px white;
+}
+
+.brandTitle {
+  margin-top: 10px;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color:whitesmoke;
+  letter-spacing: 1px;
+  margin-left:-1rem;
+}
+
+.Input {
+  text-align: left;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  color: black;
+}
+
+label{
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  color: whitesmoke;
+}
+.SubmitButton{
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  color:black;
+  margin-top: 20px;
+  background: red;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+  transition: 0.5s;
+}
+.SubmitButton:hover {
+  box-shadow: none;
+}
+label {
+  margin-bottom: 4px;
+}
+
+label:nth-of-type(2) {
+  margin-top: 12px;
+}
+
+.Input::placeholder {
+  color: gray;
+}
+
+.Input {
+  background: #ecf0f3;
+  padding: 10px;
+  padding-left: 20px;
+  height: 40px;
+  font-size: 14px;
+  border-radius: 50px;
+  box-shadow: inset 6px 6px 6px #cbced1, inset -6px -6px 6px white;
+}
+a#BoldLink {
+  font-size:1rem;
+  color:red;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 4rem;
+} 
+.account{
+color: whitesmoke;
+margin-top: 1rem;
+}
+h1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

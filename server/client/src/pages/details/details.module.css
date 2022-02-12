@@ -1,0 +1,19 @@
+.imgDetails {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.artistName{
+color: whitesmoke;
+border:5px solid whitesmoke;
+font-size: 4rem;
+}
+.allInfo{
+color: whitesmoke;
+border:5px solid whitesmoke;
+}
+.ticketsDetails{
+color: red;
+text-decoration: none;
+}

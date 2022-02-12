@@ -1,19 +1,28 @@
 console.log("app is loading");
-// const utils=require("./utils");
-import {getBooks} from "./utils.js";
-console.log(getBooks);
-// const express = require("express");
+import {addUser,getConcertsData,updateWishList,getUserById,deleteFromWishList, addContact} from "./utils.js";
 import express from "express";
 const app = express();
-// used for json inside body
 app.use(express.json());
-
-app.get("/api", (req, res) => {
-  console.log("root is accessed");
-  res.send({ res: "hi my name is maayan elias" });
+// app.get("/concerts", (req, res) => {
+// insertConcertsData(req,res);
+// });
+app.get("/concerts", (req, res) => {
+getConcertsData(req,res);
 });
-app.get("/books", (req, res) => {
-  getBooks(req,res);
+app.post("/users", (req, res) => {
+  addUser(req,res);
+});
+app.post("/contacts", (req, res) => {
+  addContact(req,res);
+});
+app.patch("/users/:id", (req, res) => {
+updateWishList(req, res);
+});
+app.get("/users/:id", (req, res) => {
+  getUserById(req, res);
+});
+app.patch("/users/delete/:id", (req, res) => {
+  deleteFromWishList(req, res);
 });
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

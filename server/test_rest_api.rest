@@ -1,7 +1,43 @@
 GET http://localhost:5000/api
 
 ### 
-GET http://localhost:5000/books
+GET http://localhost:5000/concerts
 
 ### 
+
+POST http://localhost:5000/users
+Content-Type:application/json
+
+{
+"email":"branaoasaya@gmail.com",
+"wishList":[]
+}
+###
+PATCH  http://localhost:5000/users/wjaGbrqaOrglXpFmREIYJQhujqm2
+Content-Type:application/json
+
+{
+"wishList":[{"name":"ttt"},{"name":"ghghg"},{"name":"gghgghgvgh"}]
+}
+###
+GET http://localhost:5000/users/Rj5V3qBP3hbFIHyjnAnCI3Y98VX2
+###
+
+PATCH  http://localhost:5000/users/delete/wjaGbrqaOrglXpFmREIYJQhujqm2
+Content-Type:application/json
+
+{
+"_id":"61ffc2cf6f536eea2807bd71"
+
+}
+###
+POST http://localhost:5000/contacts
+Content-Type:application/json
+
+{
+"name":"maayan elias",
+"email":"branaoasaya@gmail.com",
+"message":"hello"
+}
+
 

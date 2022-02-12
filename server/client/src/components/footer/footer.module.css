@@ -1,0 +1,22 @@
+.bgFooter{
+background-color: black;
+opacity: 0.9;
+}
+.logoFooter{
+width: 10rem;
+height: 10rem;
+}
+.footerName{
+color: whitesmoke;
+margin-left: 1rem;
+}
+.footerRights{
+color: whitesmoke;
+margin-left: 1rem;
+}
+.iconsFooter{
+margin-left:70rem;
+color: whitesmoke;
+display: inline-block;
+font-size: 1.5rem;
+}

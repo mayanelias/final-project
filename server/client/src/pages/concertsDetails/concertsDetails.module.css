@@ -1,0 +1,47 @@
+.artist{
+width:5rem;
+height: 5rem;
+}
+.container{
+margin-left: 15rem;
+width: 50rem;
+}
+.styledTable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+}
+.styledTable thead tr {
+    background-color: #CE002D;
+    color: #ffffff;
+}
+.styledTable th,
+.styledTable td {
+    padding: 20px 15px;
+}
+.styledTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styledTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styledTable tbody tr:last-of-type {
+    border-bottom: 2px solid whitesmoke;
+}
+.styledTable tbody tr.activeRow {
+    font-weight: bold;
+    color: whitesmoke;
+}
+#url{
+color:red;
+}
+.countryDetails{
+color: whitesmoke;
+font-size: 3rem;
+}

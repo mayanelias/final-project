@@ -3,11 +3,11 @@ import axios from "axios";
 import fireBaseApi from "../../logic/key";
 import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./login.css";
-const Login = ({ setAuth, USERֹֹ_INFORMATIOM, setFlag }) => {
+import style from "./login.module.css";
+const Login = ({ setAuth, USERֹֹ_INFORMATIOM, setFlag,setWishList }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorFromServer, setErrorFromServer] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const loginForm = () => {
@@ -21,6 +21,16 @@ const Login = ({ setAuth, USERֹֹ_INFORMATIOM, setFlag }) => {
         }
       )
       .then(function (response) {
+        axios
+        .get(`/users/${response.data.localId}`)
+        .then(function (res) {
+          console.log(res);
+          setWishList(res.data.wishList)
+        })
+        .catch(function (error) {
+          console.log("im here");
+          // console.log(error);
+        });
         setTimeout(() => {
           setLoading(false);
           console.log(response);
@@ -34,7 +44,9 @@ const Login = ({ setAuth, USERֹֹ_INFORMATIOM, setFlag }) => {
       })
       .catch(function (error) {
         console.log(error);
-        setErrorFromServer(true);
+        const errorMessage=error.response.data.error.message;
+        console.log(errorMessage);
+        setErrorMessage(errorMessage)
         setLoading(false);
       });
   };
@@ -42,68 +54,57 @@ const Login = ({ setAuth, USERֹֹ_INFORMATIOM, setFlag }) => {
     return email.length && password.length;
   };
   return (
-    <div className="BoxContainer">
-        <div className="form-box">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (formValidation()) {
-                loginForm();
-              }
-            }}
-          >
-          <div className="FormContainer">
-            <h1>Sign-In</h1>
-            <label>Email</label>
-            <br></br>
-            <input className="Input"
-              autoComplete="on"
-              type="email"
-              name="email"
-              onChange={(e) => {
+    <div className={style.BoxContainer}>
+    <div className={style.container}>
+    <form
+     onSubmit={(e) => {
+                e.preventDefault();
+                if (formValidation()) {
+                  loginForm();
+                }
+              }}>
+  <img className={style.brandLogo} src="https://i.ibb.co/BGgPSbV/Elias-Music-Live-Shows-logos-transparent.png"/> 
+    <p className={style.brandTitle}>EliasMusic&LiveShows</p>
+    <div className={style.inputs}>
+      <label>EMAIL</label>
+      <input className={style.Input}
+ type="email" placeholder="example@test.com" onChange={(e) => {
                 setEmail(e.target.value);
                 setDisabled(formValidation());
-              }}
-            />
-            <label>Password</label>
-            <br></br>
-            <input className="Input"
-              autoComplete="on"
-              type="password"
-              name="password"
-              onChange={(e) => {
+              }}/>
+      <label>PASSWORD</label>
+      <input className={style.Input} type="password" placeholder="Min 6 charaters long" onChange={(e) => {
                 setPassword(e.target.value);
                 setDisabled(formValidation());
-              }}
-            />
-              </div>
-            <p>
-              Don't have an account?
-              <a id="BoldLink"
-                onClick={() => setFlag({ register: true, login: false })}
-                href="#"
-              >
-                Register
-              </a>
-            </p>
-            {loading ? (
+              }} />
+      {loading ? (
               <p>
-                <Spinner animation="border" variant="primarey" />
+                <Spinner animation="border" variant="danger" />
               </p>
             ) : (
-              <input className="SubmitButton"
+              <input className={style.SubmitButton}
                 disabled={!disabled}
                 autoComplete="on"
                 type="submit"
                 value="SiGN-IN"
               />
-            )}
-          </form>
-          <h5 style={{ color: "red" }}>
-            {errorFromServer ? "error from server" : ""}
-          </h5>
-        </div>
+            )} 
       </div>
+      <p style={{ color: "red" }}>
+             {errorMessage ? errorMessage : ""}
+     </p>
+      <p className={style.account}>
+      Don't have an account?
+            <a id={style.BoldLink}
+                onClick={() => setFlag({ register: true, login: false })}
+                href="#"
+              >
+              Register
+              </a>
+            </p>
+    </form>
+  </div>
+  </div>
   );
 };
 export default Login;
